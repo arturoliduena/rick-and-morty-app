@@ -1,15 +1,58 @@
-import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../components/Themed';
+import { useSelector, useDispatch } from 'react-redux';
+import { getEpisodes } from '../store/actions';
 
-export default function TabTwoScreen() {
+import { DataTable } from 'react-native-paper';
+
+interface Props {
+  navigation: any,
+}
+
+export default function TabTwoScreen({ navigation }: Props) {
+  const dispatch = useDispatch()
+  const episodes = useSelector((state: any) => state.episode.episodes.results);
+  const info = useSelector((state: any) => state.episode.episodes.info);
+  const [page, setPage] = useState(1);
+  
+  const navigator = (id: number) => () => navigation.navigate('Episode', { itemId: id});
+
+  useEffect(() => {
+    dispatch(getEpisodes(page));
+  }, [page])
+
+  const onPageChange = (nextPage: number) => {
+    if(nextPage && nextPage <= info.pages){
+      setPage(nextPage);
+    }
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.js" />
+      <DataTable>
+        <DataTable.Header>
+          <DataTable.Title style={styles.titleName}>Name</DataTable.Title>
+          <DataTable.Title>Episode</DataTable.Title>
+        </DataTable.Header>
+        <ScrollView style={styles.scrollView}>
+          {
+            episodes.map((episode: any) => (
+              <DataTable.Row key={episode.id} onPress={navigator(episode.id)}>
+                <DataTable.Cell style={styles.titleName}>{episode.name}</DataTable.Cell>
+                <DataTable.Cell>{episode.episode}</DataTable.Cell>
+              </DataTable.Row>
+            ))
+          }
+        </ScrollView>
+
+        <DataTable.Pagination
+          page={page}
+          numberOfPages={info.pages + 1}
+          onPageChange={onPageChange}
+          label={`page ${page} of ${info.pages}`}
+        />
+      </DataTable>
     </View>
   );
 }
@@ -17,8 +60,9 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
   },
   title: {
     fontSize: 20,
@@ -29,4 +73,11 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  scrollView: {
+    // height: 10,
+  },
+  titleName: {
+    flex: 1,
+    width: 15,
+  }
 });
