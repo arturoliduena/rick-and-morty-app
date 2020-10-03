@@ -6,6 +6,9 @@
 
 mobile application that displays a list of characters and episodes of Rick and Morty.
 
+![](demo/rickAndMorty-ios.gif)
+![](demo/rickAndMorty-android.gif)
+
 ### Built With
 list of major frameworks that I built this project.
 * [react-native](https://reactnative.dev/)
