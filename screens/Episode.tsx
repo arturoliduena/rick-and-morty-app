@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 import { View } from '../components/Themed';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEpisode } from '../store/actions';
-import { Button, Card, Title, Paragraph } from 'react-native-paper';
-
+import { Card, Title, Paragraph } from 'react-native-paper';
+import CharactersList from '../components/CharactersList';
 interface Props {
   route: any,
 }
@@ -28,10 +28,7 @@ export default function Details({ route }: Props) {
               <Paragraph>Air Date: {item.air_date}</Paragraph>
               <Paragraph>Episode: {item.episode}</Paragraph>
             </Card.Content>
-            <Card.Actions>
-              <Button>Cancel</Button>
-              <Button>Ok</Button>
-            </Card.Actions>
+            <CharactersList characters={item.characters} />
           </Card>
 
         )
@@ -46,6 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
     flexDirection: 'row',
+    paddingBottom: 1
   },
   title: {
     fontSize: 20,
@@ -55,9 +53,6 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
-  },
-  scrollView: {
-    // height: 10,
   },
   titleName: {
     flex: 1,

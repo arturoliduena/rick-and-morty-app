@@ -39,7 +39,7 @@ export default function TabOneScreen({ navigation } : Props) {
           {
             characters.map((character: any) => (
               <DataTable.Row key={character.id} onPress={navigator(character.id)}>
-                <DataTable.Cell ><Avatar.Image size={24} source={{ uri: character.image}} /></DataTable.Cell>
+                <DataTable.Cell ><Avatar.Image size={46} source={{ uri: character.image}} /></DataTable.Cell>
                 <DataTable.Cell style={styles.titleName}>{character.name}</DataTable.Cell>
                 <DataTable.Cell>{character.status}</DataTable.Cell>
               </DataTable.Row>

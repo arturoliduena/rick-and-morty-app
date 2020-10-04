@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 import { View } from '../components/Themed';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCharacter } from '../store/actions';
-import { Button, Card, Title, Paragraph } from 'react-native-paper';
+import { Card, Title, Paragraph } from 'react-native-paper';
+import EpisodesList from '../components/EpisodesList';
 
 interface Props {
   route: any,
@@ -26,19 +27,14 @@ export default function Details({ route }: Props) {
             <Card.Content>
               <Title>{item.name}</Title>
             </Card.Content>
-            <Card.Cover source={{ uri: item.image }} style={styles.cover}/>
+            <Card.Cover source={{ uri: item.image }} style={styles.cover} />
             <Card.Content>
-              <Title>Details</Title>
               <Paragraph>Status: {item.status}</Paragraph>
               <Paragraph>Species: {item.species}</Paragraph>
               <Paragraph>Gender: {item.gender}</Paragraph>
             </Card.Content>
-            <Card.Actions>
-              <Button>Cancel</Button>
-              <Button>Ok</Button>
-            </Card.Actions>
+            <EpisodesList episodes={item.episode} />
           </Card>
-
         )
       }
     </View>
@@ -51,18 +47,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
     flexDirection: 'row',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    paddingBottom: 1
   },
   separator: {
     marginVertical: 30,
     height: 1,
     width: '80%',
-  },
-  scrollView: {
-    // height: 10,
   },
   titleName: {
     flex: 1,
@@ -72,6 +62,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cover: {
-    height: 450
+    height: 240
   }
 });

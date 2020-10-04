@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-import { Text, View } from '../components/Themed';
+import { View } from '../components/Themed';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEpisodes } from '../store/actions';
 
